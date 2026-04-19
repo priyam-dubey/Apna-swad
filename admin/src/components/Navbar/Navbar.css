@@ -1,0 +1,81 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4%;
+  height: 70px;
+  background: #ffffff;
+  border-bottom: 1px solid #f0e8e0;
+  box-shadow: 0 2px 16px rgba(220, 80, 30, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-brand-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #FF4500, #FF7A00);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.navbar-brand-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+}
+
+.navbar-brand-name span { color: #FF4500; }
+
+.navbar-badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  background: #fff4f0;
+  color: #FF4500;
+  padding: 3px 10px;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-left: 4px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-profile {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #f0e8e0;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.navbar-profile:hover { border-color: #FF4500; }
+
+.login-condition {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FF4500;
+  background: #fff4f0;
+  padding: 6px 14px;
+  border-radius: 8px;
+}
