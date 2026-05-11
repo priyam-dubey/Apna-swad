@@ -6,7 +6,8 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const url = "https://apna-swad-backend-v08b.onrender.com/";
+  //const url = "https://apna-swad-backend-v08b.onrender.com/";
+  const url = import.meta.env.VITE_BACKEND_URL;
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
 
