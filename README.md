@@ -4,7 +4,7 @@ Apna Swad is a full-stack food ordering web application built with the MERN Stac
 
 ## Demo
 Demo
-- User Panel: https://apna-swad-priyam-dubeys-projects.vercel.app/
+- User Panel:https://apna-swad-frontend.vercel.app/
 - Admin Panel: https://apna-swad-umvn.vercel.app/
 - Backend Panel: https://apna-swad-backend-v08b.onrender.com/
 
