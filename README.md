@@ -1,8 +1,109 @@
-# Apna Swad — Food Delivery App
+# 🍔 Apna Swad — Food Delivery App
 
-A full-stack food delivery app (Swiggy/Zomato clone) built with the MERN stack.
+A full-stack MERN food delivery platform inspired by Swiggy and Zomato.
+
+The application provides customers with a seamless food ordering experience while giving administrators complete control over menu management and order processing.
+
+Built using React, Node.js, Express, MongoDB, Stripe, and JWT Authentication.
+
+## Live Demo
+
+🌐 Customer App:
+https://apna-swad-frontend.vercel.app/
+
+🛠 Admin Dashboard:
+https://apna-swad-umvn.vercel.app/
+
+⚙ Backend API:
+https://apna-swad-backend-v08b.onrender.com/
+
+## 📸 Project Screenshots
+
+| Customer Application | Admin Dashboard |
+|----------------------|-----------------|
+| <img src="./screenshots/frontend.png" width="500"/> | <img src="./screenshots/admin.png" width="500"/> |
+
+| Backend Server | Stripe Checkout |
+|----------------|-----------------|
+| <img src="./screenshots/backend.png" width="500"/> | <img src="./screenshots/stripe.png" width="500"/> |
+
+## Features
+
+### Customer
+
+- JWT Authentication
+- Login & Signup
+- Browse food menu
+- Search & filter foods
+- Add to cart
+- Stripe checkout
+- View order history
+- Track order status
+
+### Admin
+
+- Secure admin login
+- Add food items
+- Delete food items
+- View all orders
+- Update order status
+- Role-based access
+
+### Backend
+
+- REST APIs
+- JWT middleware
+- Password hashing using bcrypt
+- Stripe payment integration
+- Multer image uploads
+- MongoDB Atlas integration
+
+## Tech Stack
+
+Frontend
+
+- React
+- Vite
+- Axios
+- React Router
+
+Backend
+
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+
+Authentication
+
+- JWT
+- bcrypt
+
+Payments
+
+- Stripe Checkout
+
+Deployment
+
+- Vercel
+- Render
+
+Others
+
+- Multer
+
+Frontend (React)
+        │
+        │ REST API
+        ▼
+Backend (Express)
+        │
+        ├── MongoDB Atlas
+        └── Stripe Checkout
 
 ---
+
+
 
 ## Project Structure
 
