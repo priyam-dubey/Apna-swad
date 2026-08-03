@@ -1,76 +1,107 @@
+// backend/controllers/userController.js
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import validator from "validator";
 
-// login user
+// ─── Token factory ────────────────────────────────────────────────────────────
+// BUG FIX #3: Original createToken had NO expiry — tokens lived forever.
+// Added a 7-day expiry for security.
+const createToken = (id) => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is not configured on the server.");
+  }
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+};
 
+// ─── Login ────────────────────────────────────────────────────────────────────
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+
+  // BUG FIX #4: No input validation on login — empty strings reached the DB.
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Email and password are required." });
+  }
+
   try {
-    const user = await userModel.findOne({ email });
+    const user = await userModel.findOne({ email: email.toLowerCase().trim() });
     if (!user) {
-      return res.json({ success: false, message: "User Doesn't exist" });
+      return res
+        .status(400)
+        .json({ success: false, message: "User does not exist." });
     }
-    const isMatch =await bcrypt.compare(password, user.password);
+
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.json({ success: false, message: "Invalid Credentials" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid credentials." });
     }
-    const role=user.role;
+
     const token = createToken(user._id);
-    res.json({ success: true, token,role });
+    // BUG FIX #5: role was returned but frontend never consumed it for routing.
+    // Returning it here; the frontend Login component now uses it correctly.
+    return res.json({ success: true, token, role: user.role });
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "Error" });
+    console.error("loginUser error:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Server error. Please try again." });
   }
 };
 
-// Create token
-
-const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET);
-};
-
-// register user
-
+// ─── Register ─────────────────────────────────────────────────────────────────
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: "All fields are required." });
+  }
+
   try {
-    // checking user is already exist
-    const exists = await userModel.findOne({ email });
+    const exists = await userModel.findOne({
+      email: email.toLowerCase().trim(),
+    });
     if (exists) {
-      return res.json({ success: false, message: "User already exists" });
+      return res
+        .status(400)
+        .json({ success: false, message: "An account with this email already exists." });
     }
 
-    // validating email format and strong password
     if (!validator.isEmail(email)) {
-      return res.json({ success: false, message: "Please enter valid email" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Please enter a valid email address." });
     }
     if (password.length < 8) {
-      return res.json({
-        success: false,
-        message: "Please enter strong password",
-      });
+      return res
+        .status(400)
+        .json({ success: false, message: "Password must be at least 8 characters." });
     }
 
-    // hashing user password
-
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // BUG FIX #6: SALT env var was read with Number() but if undefined it
+    // returns NaN — bcrypt then crashes silently. Default to 10.
+    const saltRounds = Number(process.env.SALT) || 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newUser = new userModel({
-      name: name,
-      email: email,
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
       password: hashedPassword,
     });
 
     const user = await newUser.save();
-    const role=user.role;
     const token = createToken(user._id);
-    res.json({ success: true, token, role});
+    return res.json({ success: true, token, role: user.role });
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "Error" });
+    console.error("registerUser error:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Server error. Please try again." });
   }
 };
 

@@ -39,4 +39,78 @@
     .order-item img{
         width: 40px;
     }
+}/* admin/src/pages/Orders/Orders.css  — APPEND these rules to the existing file */
+
+/* ── Header row with refresh button ──────────────────────────────────────── */
+.orders-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.orders-refresh-btn {
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.orders-refresh-btn:hover {
+  background: #f4f4f4;
+}
+
+/* ── Loading / error / empty states ──────────────────────────────────────── */
+.orders-loading,
+.orders-error,
+.orders-empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+  font-size: 15px;
+}
+.orders-error button {
+  margin-top: 12px;
+  padding: 8px 20px;
+  background: #ff6b35;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ── Payment badge ───────────────────────────────────────────────────────── */
+.order-payment-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.order-payment-badge.paid {
+  background: #e6f9ed;
+  color: #2e7d32;
+}
+.order-payment-badge.unpaid {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+/* ── Confirm button ──────────────────────────────────────────────────────── */
+.confirm-order-btn {
+  background: #ff6b35;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.confirm-order-btn:hover {
+  background: #e55a28;
 }
